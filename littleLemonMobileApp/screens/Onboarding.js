@@ -1,22 +1,47 @@
-import { StyleSheet, Text, View, Image } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useState } from 'react';
+import { StyleSheet, Text, View, Image, Alert, ScrollView } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 
 export default function Onboarding({navigation}) {
 
-    function moveToHomeScreen(){
-        navigation.navigate('Home');
+  const [firstName, setFirstName] = useState('');
+  const [userEmail, setUserEmail] = useState('');
+
+  const user = {
+    name: firstName,
+    email: userEmail
+  };
+
+  function moveToHomeScreen(){
+    if(firstName !== '' && userEmail !== '') {
+      
+      navigation.navigate('Home');
     }
+    else
+      Alert.alert('Please fill all input field!');
+  }
+
+  const storeData = async () => {
+    try {
+      await AsyncStorage.setItem('user', JSON.stringify(user))
+    } catch ( error ) {
+      Alert.alert(error);
+    }
+  }
 
   return (
-    <View style={styles.container}>
-        <Image style={styles.logo} source={require('../assets/Logo.png')}/>
-        <View style = {styles.inputField}>
-            <Text style={styles.textInputField}>Let us get to know you</Text>
-            <TextInput style={styles.input} mode='outlined' label='First Name'/>
-            <TextInput  mode='outlined' label='Email'/>
-        </View>
-        <Button style={styles.nextBtn} mode='contained' onPress={moveToHomeScreen}>Next</Button>
-    </View>
+    <ScrollView style={styles.container}>
+      <View style={styles.container}>
+          <Image style={styles.logo} source={require('../assets/Logo.png')}/>
+          <View style = {styles.inputField}>
+              <Text style={styles.textInputField}>Let us get to know you</Text>
+              <TextInput style={styles.input} mode='outlined' label='First Name' value={firstName} onChangeText={firstName => setFirstName(firstName)}/>
+              <TextInput style={styles.input} mode='outlined' label='Email' value={userEmail} onChangeText={userEmail => setUserEmail(userEmail)}/>
+          </View>
+          <Button style={styles.nextBtn} mode='contained' onPress={moveToHomeScreen}>Next</Button>
+      </View>
+    </ScrollView>
   );
 }
 
@@ -26,8 +51,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignContent: 'center',
     width:'100%',
-    // padding:10,
-    // marginTop:30,
+    padding:10,
+    marginTop:30,
   },
   logo: {
     width: 185,
