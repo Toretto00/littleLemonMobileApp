@@ -1,10 +1,12 @@
 import { StyleSheet, Text, View, Image } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
+import Header from '../components/Header';
 
 export default function Home() {
   return (
     <View style={styles.container}>
-        <Text style={styles.textInputField}>Home</Text>
+      <Header/>
+      <Text style={styles.textInputField}>Home</Text>
     </View>
   );
 }
@@ -15,8 +17,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignContent: 'center',
     width:'100%',
-    // padding:10,
-    // marginTop:30,
+    paddingTop: 40,
+    //marginTop:30,
   },
   textInputField:{
     fontSize: 18,

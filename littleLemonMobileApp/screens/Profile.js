@@ -4,7 +4,7 @@ import { Button, TextInput } from 'react-native-paper';
 export default function Profile() {
   return (
     <View style={styles.container}>
-        <Text style={styles.textInputField}>Home</Text>
+        <Text style={styles.textInputField}>Profile</Text>
     </View>
   );
 }
@@ -15,11 +15,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignContent: 'center',
     width:'100%',
-    // padding:10,
-    // marginTop:30,
-  },
-  textInputField:{
-    fontSize: 18,
-    marginBottom: 10,
+    padding:10,
+    marginTop:30,
   },
 });
